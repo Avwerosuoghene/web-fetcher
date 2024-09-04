@@ -1,9 +1,12 @@
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs/promises';
+import * as path from 'path';
 import Logger from './logger';
 
-export function saveToFile(filename: string, content: string) {
-  const filePath = path.join(process.cwd(), filename);
-  fs.writeFileSync(filePath, content);
-  Logger.success(`File saved to ${filePath}`);
+export async function saveToFile(filename: string, content: string): Promise<void> {
+    try {
+        await fs.writeFile(path.join(process.cwd(), filename), content, 'utf-8');
+        Logger.success(`File saved: ${filename}`);
+    } catch (error: any) {
+        Logger.error(`Failed to save file: ${filename}, Error: ${error.message}`);
+    }
 }

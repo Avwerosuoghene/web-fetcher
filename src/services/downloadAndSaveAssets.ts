@@ -1,3 +1,4 @@
+// src/lib/services/downloadAndSaveAssets.ts
 import axios from 'axios';
 import { Element, Node } from 'domhandler';
 import * as path from 'path';
@@ -5,7 +6,7 @@ import * as fs from 'fs/promises';
 import Logger from '../utils/logger';
 
 export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Promise<void> {
-    const assetsDir = path.join(process.cwd(), hostname);
+    const assetsDir = path.join(process.cwd(),'assets', hostname );
 
     await fs.mkdir(assetsDir, { recursive: true });
 
@@ -16,8 +17,10 @@ export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Pr
         
         if (url) {
             try {
+                // Resolve the full URL
                 const assetUrl = new URL(url, `https://${hostname}`).href;
                 const assetPath = path.join(assetsDir, path.basename(assetUrl));
+                
                 Logger.info(`Attempting to download asset: ${assetUrl}`);
                 downloadPromises.push(
                     axios.get(assetUrl, { responseType: 'arraybuffer' })
@@ -30,7 +33,11 @@ export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Pr
                             }
                         })
                 );
-                node.attribs[attr] = path.join(hostname, path.basename(assetUrl));
+
+                // Update attribute to point to local file
+                node.attribs[attr] = `./${hostname}/${path.basename(assetUrl)}`;
+                Logger.success(`Successfully downloaded asset: ${assetUrl}`);
+
             } catch (error: any) {
                 Logger.error(`Failed to resolve asset URL: ${url}, Error: ${error.message}`);
             }

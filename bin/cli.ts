@@ -1,0 +1,22 @@
+#!/usr/bin/env ts-node
+
+import { Command } from 'commander';
+import { fetchAndSavePages } from '../src/commands/fetchPages';
+
+const program = new Command();
+
+program
+  .version('1.0.0')
+  .description('A CLI to fetch web pages and save them to disk')
+  .option('-u, --urls <urls...>', 'List of URLs to fetch')
+  .action((options) => {
+    const { urls } = options;
+    if (urls) {
+      fetchAndSavePages(urls);
+    } else {
+      console.error('No URLs provided');
+      process.exit(1);
+    }
+  });
+
+program.parse(process.argv);

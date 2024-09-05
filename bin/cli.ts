@@ -12,12 +12,13 @@ program
   .option('-u, --urls <urls...>', 'List of URLs to fetch')
   .option('-m, --metadata', 'Print metadata of the fetched pages')
   .action((options) => {
-    const { urls } = options;
+    const { urls, metadata } = options;
     if (urls) {
-      fetchAndSavePages(urls, options.metadata);
+      fetchAndSavePages(urls, metadata);
     } else {
-      Logger.error(`No URLs provided`);
-      process.exit(1);
+        Logger.error('No URLs provided. Use -u option followed by URLs to specify URLs.');
+        program.help();
+        process.exit(1);
     }
   });
 

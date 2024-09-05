@@ -12,6 +12,9 @@ export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Pr
 
     const downloadPromises: Promise<void>[] = [];
 
+    Logger.ongoing(`Downloading and saving assets...`);
+
+
     function downloadAsset(node: Element, attr: string) {
         let url = node.attribs[attr];
         
@@ -59,6 +62,9 @@ export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Pr
     nodes.forEach(processNode);
 
     await Promise.all(downloadPromises);
+
+    Logger.success(`Assets saved to ${assetsDir}`);
+
 
     return assetsDir;
 }

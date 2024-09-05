@@ -11,22 +11,23 @@ import path from 'path';
 export async function fetchAndSavePages(urls: string[], printMetadata: boolean) {
     for (const url of urls) {
         try {
-            Logger.ongoing(`Fetching ${url} data...`);
+            Logger.ongoing(`Fetching ${url}...`);
             const document = (await fetchPage(url)).data;
+
 
             const hostname = new URL(url).hostname;
             const filename = `${hostname}.html`;
 
             if (printMetadata) {
-                Logger.ongoing(`Fetching metadata...`);
                 const metadata = extractMetadata(document, hostname);
                 Logger.info(`Metadata for ${url}: ${JSON.stringify(metadata, null, 2)}`);
             }
-            const assetsDir  = await downloadAndSaveAssets(document, hostname);
-            const updatedHtml = adjustHtmlLinks(document, hostname);
+
+            const assetsDir = await downloadAndSaveAssets(document, hostname);
+
+            const updatedHtml = adjustHtmlLinks(document);
 
             saveToFile(assetsDir, filename, updatedHtml);
-            Logger.success(`Saved ${url} to ${filename}`);
 
         } catch (error: any) {
             Logger.error(`Failed to fetch ${url}: ${error.message}`);

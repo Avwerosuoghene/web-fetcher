@@ -1,8 +1,10 @@
-// src/utils/adjustHtmlLinks.ts
 import { Element, Node, AnyNode } from 'domhandler';
 import serialize from 'dom-serializer';
+import Logger from './logger';
 
-export function adjustHtmlLinks(nodes: Node[], hostname: string): string {
+export function adjustHtmlLinks(nodes: Node[]): string {
+    Logger.ongoing(`Adjusting HTML links...`);
+
     function processNode(node: Node) {
         if (node instanceof Element) {
             if (node.name === 'img' && node.attribs.src) {
@@ -21,9 +23,10 @@ export function adjustHtmlLinks(nodes: Node[], hostname: string): string {
     }
 
     nodes.forEach(processNode);
+
+    Logger.success(`HTML links adjusted`);
+
     
     return serialize(nodes as AnyNode[]);
-
-
 
 }

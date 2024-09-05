@@ -1,12 +1,6 @@
-import axios from 'axios';
-import cheerio from 'cheerio';
-import { DomHandler } from 'domhandler';
-
-
 import { saveToFile } from '../utils/fileUtils';
 import Logger from '../utils/logger';
 import { extractMetadata } from '../models/metadata';
-import { Parser } from 'htmlparser2';
 import { downloadAndSaveAssets } from '../services/downloadAndSaveAssets';
 import { fetchPage } from '../services/fetchPage';
 import { adjustHtmlLinks } from '../utils/adjustHtmlLinks';
@@ -22,9 +16,8 @@ export async function fetchAndSavePages(urls: string[], printMetadata: boolean) 
 
             const hostname = new URL(url).hostname;
             const filename = `${hostname}.html`;
-            console.log(document);
 
-            const metadata = extractMetadata(document.data);
+            const metadata = extractMetadata(document.data, hostname);
             if (printMetadata) {
                 Logger.info(`Metadata for ${url}: ${JSON.stringify(metadata, null, 2)}`);
             }

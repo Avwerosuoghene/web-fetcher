@@ -17,7 +17,6 @@ export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Pr
         
         if (url) {
             try {
-                // Resolve the full URL
                 const assetUrl = new URL(url, `https://${hostname}`).href;
                 const assetPath = path.join(assetsDir, path.basename(assetUrl));
                 
@@ -34,7 +33,6 @@ export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Pr
                         })
                 );
 
-                // Update attribute to point to local file
                 node.attribs[attr] = `./${hostname}/${path.basename(assetUrl)}`;
                 Logger.success(`Successfully downloaded asset: ${assetUrl}`);
 

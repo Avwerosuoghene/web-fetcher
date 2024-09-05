@@ -19,11 +19,9 @@ export function adjustHtmlLinks(html: string, basePath: string): string {
                 const attributes = node.attribs || {};
 
                 if (node.name === 'img' || node.name === 'link' || node.name === 'script') {
-                    console.log(basePath)
 
                     if (attributes.src) {
                         attributes.src = attributes.src.replace(/^\/(.+)/, `${basePath}/$1`);
-                        console.log(attributes.src )
                     }
                     if (attributes.href) {
                         attributes.href = attributes.href.replace(/^\/(.+)/, `${basePath}/$1`);

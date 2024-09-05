@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "my-cli": "./bin/cli.ts"
+    "web-fetcher-cli": "./bin/cli.ts"
   },
   "keywords": [],
   "author": "",

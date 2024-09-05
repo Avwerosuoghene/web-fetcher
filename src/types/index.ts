@@ -1,5 +1,6 @@
 export interface Metadata {
-    linksCount: number;
-    imagesCount: number;
-    fetchTimestamp: string;
+    site: string;
+    num_links: number;
+    images: number;
+    last_fetch: string;
   }

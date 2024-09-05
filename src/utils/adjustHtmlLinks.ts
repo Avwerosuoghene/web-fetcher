@@ -2,7 +2,7 @@ import { Element, Node, AnyNode } from 'domhandler';
 import serialize from 'dom-serializer';
 import Logger from './logger';
 
-export function adjustHtmlLinks(nodes: Node[], directory: string,): string {
+export function adjustHtmlLinks(nodes: Node[], directory: string): string {
     Logger.ongoing(`Adjusting HTML links...`);
 
     function processNode(node: Node) {

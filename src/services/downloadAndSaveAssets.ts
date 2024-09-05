@@ -6,7 +6,7 @@ import * as fs from 'fs/promises';
 import Logger from '../utils/logger';
 
 export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Promise<string> {
-    const assetsDir = path.join(process.cwd(),'assets', hostname );
+    const assetsDir = path.join(process.cwd(), hostname );
 
     await fs.mkdir(assetsDir, { recursive: true });
 

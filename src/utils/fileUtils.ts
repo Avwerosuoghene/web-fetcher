@@ -5,7 +5,6 @@ import Logger from './logger';
 export async function saveToFile(directory: string, filename: string, content: string): Promise<void> {
   try {
     
-    await fs.mkdir(directory, { recursive: true });
 
     const filePath = path.join(directory, filename);
     await fs.writeFile(filePath, content, 'utf8');

@@ -18,7 +18,6 @@ export function extractMetadata(nodes: Node[], hostname: string): Metadata {
     }
 
     nodes.forEach(countElements);
-
     const last_fetch  = formatDateTime();
 
 

@@ -18,13 +18,12 @@ export async function fetchAndSavePages(urls: string[], printMetadata: boolean) 
             const filename = `${hostname}.html`;
 
             if (printMetadata) {
-                Logger.info(`Fetching metadata...`);
+                Logger.ongoing(`Fetching metadata...`);
                 const metadata = extractMetadata(document, hostname);
                 Logger.info(`Metadata for ${url}: ${JSON.stringify(metadata, null, 2)}`);
             }
-            await downloadAndSaveAssets(document, hostname);
+            const assetsDir  = await downloadAndSaveAssets(document, hostname);
             const updatedHtml = adjustHtmlLinks(document, hostname);
-            const assetsDir = path.join(process.cwd(),'assets', hostname );
 
             saveToFile(assetsDir, filename, updatedHtml);
             Logger.success(`Saved ${url} to ${filename}`);

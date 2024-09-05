@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as fs from 'fs/promises';
 import Logger from '../utils/logger';
 
-export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Promise<void> {
+export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Promise<string> {
     const assetsDir = path.join(process.cwd(),'assets', hostname );
 
     await fs.mkdir(assetsDir, { recursive: true });
@@ -20,7 +20,7 @@ export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Pr
                 const assetUrl = new URL(url, `https://${hostname}`).href;
                 const assetPath = path.join(assetsDir, path.basename(assetUrl));
                 
-                Logger.info(`Attempting to download asset: ${assetUrl}`);
+                Logger.ongoing(`Attempting to download asset: ${assetUrl}`);
                 downloadPromises.push(
                     axios.get(assetUrl, { responseType: 'arraybuffer' })
                         .then(response => fs.writeFile(assetPath, response.data))
@@ -59,4 +59,6 @@ export async function downloadAndSaveAssets(nodes: Node[], hostname: string): Pr
     nodes.forEach(processNode);
 
     await Promise.all(downloadPromises);
+
+    return assetsDir;
 }

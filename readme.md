@@ -102,9 +102,12 @@ Provides various logging methods for informational, success, warning, and error 
 
 ## Testing
 
-To run tests, use the following command:  
-    ```bash
-    npm test 
+
+
+- To run tests, use the following command:
+
+  ```bash
+  npm test
 Tests are located in the `tests` folder and cover various functionalities including:
 
 - Asset downloading

@@ -1,4 +1,4 @@
-import { blue, green, yellow, red } from 'colorette';
+import { blue, green, yellow, red, magenta } from 'colorette';
 
 class Logger {
   static info(message: string) {
@@ -15,6 +15,10 @@ class Logger {
 
   static error(message: string) {
     console.log(red(`[ERROR] ${message}`));
+  }
+
+  static ongoing(message: string) {
+    console.log(magenta(`[ONGOING] ${message}`));
   }
 }
 

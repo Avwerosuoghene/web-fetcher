@@ -2,6 +2,7 @@
 
 import { Command } from 'commander';
 import { fetchAndSavePages } from '../src/commands/fetchPages';
+import Logger from '../src/utils/logger';
 
 const program = new Command();
 
@@ -15,7 +16,7 @@ program
     if (urls) {
       fetchAndSavePages(urls, options.metadata);
     } else {
-      console.error('No URLs provided');
+      Logger.error(`No URLs provided`);
       process.exit(1);
     }
   });

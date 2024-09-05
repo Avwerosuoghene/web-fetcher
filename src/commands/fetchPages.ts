@@ -11,18 +11,19 @@ import path from 'path';
 export async function fetchAndSavePages(urls: string[], printMetadata: boolean) {
     for (const url of urls) {
         try {
-            Logger.info(`Fetching ${url}...`);
-            const document = (await fetchPage(url));
+            Logger.ongoing(`Fetching ${url} data...`);
+            const document = (await fetchPage(url)).data;
 
             const hostname = new URL(url).hostname;
             const filename = `${hostname}.html`;
 
-            const metadata = extractMetadata(document.data, hostname);
             if (printMetadata) {
+                Logger.info(`Fetching metadata...`);
+                const metadata = extractMetadata(document, hostname);
                 Logger.info(`Metadata for ${url}: ${JSON.stringify(metadata, null, 2)}`);
             }
-            await downloadAndSaveAssets(document.data, hostname);
-            const updatedHtml = adjustHtmlLinks(document.data, hostname);
+            await downloadAndSaveAssets(document, hostname);
+            const updatedHtml = adjustHtmlLinks(document, hostname);
             const assetsDir = path.join(process.cwd(),'assets', hostname );
 
             saveToFile(assetsDir, filename, updatedHtml);

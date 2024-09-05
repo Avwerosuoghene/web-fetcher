@@ -4,7 +4,6 @@ import { extractMetadata } from '../models/metadata';
 import { downloadAndSaveAssets } from '../services/downloadAndSaveAssets';
 import { fetchPage } from '../services/fetchPage';
 import { adjustHtmlLinks } from '../utils/adjustHtmlLinks';
-import path from 'path';
 
 
 
@@ -25,7 +24,7 @@ export async function fetchAndSavePages(urls: string[], printMetadata: boolean) 
 
             const assetsDir = await downloadAndSaveAssets(document, hostname);
 
-            const updatedHtml = adjustHtmlLinks(document);
+            const updatedHtml = adjustHtmlLinks(document, assetsDir);
 
             saveToFile(assetsDir, filename, updatedHtml);
 

@@ -72,41 +72,39 @@ Contains the main functionality to:
 - Adjust HTML links using `adjustHtmlLinks`.
 - Save the final HTML to a file using `saveToFile`.
 
-### `src/models/metadata.ts`
+#### `src/models/metadata.ts`
 
 Extracts metadata from the HTML, including the number of links and images, and formats the last fetch date and time.
 
-### `src/services/downloadAndSaveAssets.ts`
+#### `src/services/downloadAndSaveAssets.ts`
 
 Downloads assets like images, CSS, and JavaScript files. Saves them to a local directory and updates the HTML to point to these local files.
 
-### `src/services/fetchPage.ts`
+#### `src/services/fetchPage.ts`
 
 Fetches the HTML content of a web page and parses it into a DOM structure.
 
-### `src/utils/adjustHtmlLinks.ts`
+#### `src/utils/adjustHtmlLinks.ts`
 
 Updates HTML links to point to local copies of assets.
 
-### `src/utils/dateFormatter.ts`
+#### `src/utils/dateFormatter.ts`
 
 Formats dates and times used in metadata.
 
-### `src/utils/fileUtils.ts`
+#### `src/utils/fileUtils.ts`
 
 Handles file operations, including saving HTML files.
 
-### `src/utils/logger.ts`
+#### `src/utils/logger.ts`
 
 Provides various logging methods for informational, success, warning, and error messages.
 
 ## Testing
 
-To run tests, use the following command:
-
-```bash
-npm test
-
+To run tests, use the following command:  
+    ```bash
+    npm test 
 Tests are located in the `tests` folder and cover various functionalities including:
 
 - Asset downloading
